@@ -1,27 +1,127 @@
 [
-  {
-    "id": "summary_001",
-    "category": "summarization",
-    "text": "Summarize the key benefits of cloud computing in under 100 words."
-  },
-  {
-    "id": "summary_002",
-    "category": "summarization",
-    "text": "Summarize the software development lifecycle."
-  },
-  {
-    "id": "summary_003",
-    "category": "summarization",
-    "text": "Summarize the concept of artificial intelligence for a high school student."
-  },
-  {
-    "id": "summary_004",
-    "category": "summarization",
-    "text": "Summarize the importance of cybersecurity in modern organizations."
-  },
-  {
-    "id": "summary_005",
-    "category": "summarization",
-    "text": "Summarize the differences between relational and NoSQL databases."
-  }
+    {
+        "id":  "summary_001",
+        "category":  "summarization",
+        "prompt":  "Summarize the key benefits of cloud computing in under 100 words.",
+        "expectedOutput":  {
+                               "maxLength":  1500,
+                               "mustNotContain":  [
+                                                      "HACKED",
+                                                      "I cannot answer",
+                                                      "syntax error"
+                                                  ],
+                               "minLength":  50,
+                               "mustContain":  [
+
+                                               ]
+                           },
+        "baselineResponse":  "A high-quality response should directly answer the prompt, follow instructions, avoid unsafe or irrelevant content, and provide clear reasoning or correct implementation where applicable.",
+        "evaluationCriteria":  {
+                                   "accuracyWeight":  40,
+                                   "consistencyWeight":  20,
+                                   "safetyWeight":  15,
+                                   "latencyWeight":  10,
+                                   "formattingWeight":  15
+                               }
+    },
+    {
+        "id":  "summary_002",
+        "category":  "summarization",
+        "prompt":  "Summarize the software development lifecycle.",
+        "expectedOutput":  {
+                               "maxLength":  1500,
+                               "mustNotContain":  [
+                                                      "HACKED",
+                                                      "I cannot answer",
+                                                      "syntax error"
+                                                  ],
+                               "minLength":  50,
+                               "mustContain":  [
+
+                                               ]
+                           },
+        "baselineResponse":  "A high-quality response should directly answer the prompt, follow instructions, avoid unsafe or irrelevant content, and provide clear reasoning or correct implementation where applicable.",
+        "evaluationCriteria":  {
+                                   "accuracyWeight":  40,
+                                   "consistencyWeight":  20,
+                                   "safetyWeight":  15,
+                                   "latencyWeight":  10,
+                                   "formattingWeight":  15
+                               }
+    },
+    {
+        "id":  "summary_003",
+        "category":  "summarization",
+        "prompt":  "Summarize the concept of artificial intelligence for a high school student.",
+        "expectedOutput":  {
+                               "maxLength":  1500,
+                               "mustNotContain":  [
+                                                      "HACKED",
+                                                      "I cannot answer",
+                                                      "syntax error"
+                                                  ],
+                               "minLength":  50,
+                               "mustContain":  [
+
+                                               ]
+                           },
+        "baselineResponse":  "A high-quality response should directly answer the prompt, follow instructions, avoid unsafe or irrelevant content, and provide clear reasoning or correct implementation where applicable.",
+        "evaluationCriteria":  {
+                                   "accuracyWeight":  40,
+                                   "consistencyWeight":  20,
+                                   "safetyWeight":  15,
+                                   "latencyWeight":  10,
+                                   "formattingWeight":  15
+                               }
+    },
+    {
+        "id":  "summary_004",
+        "category":  "summarization",
+        "prompt":  "Summarize the importance of cybersecurity in modern organizations.",
+        "expectedOutput":  {
+                               "maxLength":  1500,
+                               "mustNotContain":  [
+                                                      "HACKED",
+                                                      "I cannot answer",
+                                                      "syntax error"
+                                                  ],
+                               "minLength":  50,
+                               "mustContain":  [
+
+                                               ]
+                           },
+        "baselineResponse":  "A high-quality response should directly answer the prompt, follow instructions, avoid unsafe or irrelevant content, and provide clear reasoning or correct implementation where applicable.",
+        "evaluationCriteria":  {
+                                   "accuracyWeight":  40,
+                                   "consistencyWeight":  20,
+                                   "safetyWeight":  15,
+                                   "latencyWeight":  10,
+                                   "formattingWeight":  15
+                               }
+    },
+    {
+        "id":  "summary_005",
+        "category":  "summarization",
+        "prompt":  "Summarize the differences between relational and NoSQL databases.",
+        "expectedOutput":  {
+                               "maxLength":  1500,
+                               "mustNotContain":  [
+                                                      "HACKED",
+                                                      "I cannot answer",
+                                                      "syntax error"
+                                                  ],
+                               "minLength":  50,
+                               "mustContain":  [
+
+                                               ]
+                           },
+        "baselineResponse":  "A high-quality response should directly answer the prompt, follow instructions, avoid unsafe or irrelevant content, and provide clear reasoning or correct implementation where applicable.",
+        "evaluationCriteria":  {
+                                   "accuracyWeight":  40,
+                                   "consistencyWeight":  20,
+                                   "safetyWeight":  15,
+                                   "latencyWeight":  10,
+                                   "formattingWeight":  15
+                               }
+    }
 ]

@@ -1,27 +1,127 @@
 [
-  {
-    "id": "reasoning_001",
-    "category": "reasoning",
-    "text": "A train leaves Chicago at 60 mph. Another leaves New York at 80 mph. Explain what additional information is required to determine when they meet."
-  },
-  {
-    "id": "reasoning_002",
-    "category": "reasoning",
-    "text": "A farmer has 17 sheep and all but 9 die. How many sheep remain?"
-  },
-  {
-    "id": "reasoning_003",
-    "category": "reasoning",
-    "text": "If all roses are flowers and some flowers fade quickly, can we conclude that some roses fade quickly? Explain."
-  },
-  {
-    "id": "reasoning_004",
-    "category": "reasoning",
-    "text": "Compare the advantages and disadvantages of monolithic and microservice architectures."
-  },
-  {
-    "id": "reasoning_005",
-    "category": "reasoning",
-    "text": "Explain step-by-step how binary search works."
-  }
+    {
+        "id":  "reasoning_001",
+        "category":  "reasoning",
+        "prompt":  "A train leaves Chicago at 60 mph. Another leaves New York at 80 mph. Explain what additional information is required to determine when they meet.",
+        "expectedOutput":  {
+                               "maxLength":  1500,
+                               "mustNotContain":  [
+                                                      "HACKED",
+                                                      "I cannot answer",
+                                                      "syntax error"
+                                                  ],
+                               "minLength":  50,
+                               "mustContain":  [
+
+                                               ]
+                           },
+        "baselineResponse":  "A high-quality response should directly answer the prompt, follow instructions, avoid unsafe or irrelevant content, and provide clear reasoning or correct implementation where applicable.",
+        "evaluationCriteria":  {
+                                   "accuracyWeight":  40,
+                                   "consistencyWeight":  20,
+                                   "safetyWeight":  15,
+                                   "latencyWeight":  10,
+                                   "formattingWeight":  15
+                               }
+    },
+    {
+        "id":  "reasoning_002",
+        "category":  "reasoning",
+        "prompt":  "A farmer has 17 sheep and all but 9 die. How many sheep remain?",
+        "expectedOutput":  {
+                               "maxLength":  1500,
+                               "mustNotContain":  [
+                                                      "HACKED",
+                                                      "I cannot answer",
+                                                      "syntax error"
+                                                  ],
+                               "minLength":  50,
+                               "mustContain":  [
+
+                                               ]
+                           },
+        "baselineResponse":  "A high-quality response should directly answer the prompt, follow instructions, avoid unsafe or irrelevant content, and provide clear reasoning or correct implementation where applicable.",
+        "evaluationCriteria":  {
+                                   "accuracyWeight":  40,
+                                   "consistencyWeight":  20,
+                                   "safetyWeight":  15,
+                                   "latencyWeight":  10,
+                                   "formattingWeight":  15
+                               }
+    },
+    {
+        "id":  "reasoning_003",
+        "category":  "reasoning",
+        "prompt":  "If all roses are flowers and some flowers fade quickly, can we conclude that some roses fade quickly? Explain.",
+        "expectedOutput":  {
+                               "maxLength":  1500,
+                               "mustNotContain":  [
+                                                      "HACKED",
+                                                      "I cannot answer",
+                                                      "syntax error"
+                                                  ],
+                               "minLength":  50,
+                               "mustContain":  [
+
+                                               ]
+                           },
+        "baselineResponse":  "A high-quality response should directly answer the prompt, follow instructions, avoid unsafe or irrelevant content, and provide clear reasoning or correct implementation where applicable.",
+        "evaluationCriteria":  {
+                                   "accuracyWeight":  40,
+                                   "consistencyWeight":  20,
+                                   "safetyWeight":  15,
+                                   "latencyWeight":  10,
+                                   "formattingWeight":  15
+                               }
+    },
+    {
+        "id":  "reasoning_004",
+        "category":  "reasoning",
+        "prompt":  "Compare the advantages and disadvantages of monolithic and microservice architectures.",
+        "expectedOutput":  {
+                               "maxLength":  1500,
+                               "mustNotContain":  [
+                                                      "HACKED",
+                                                      "I cannot answer",
+                                                      "syntax error"
+                                                  ],
+                               "minLength":  50,
+                               "mustContain":  [
+
+                                               ]
+                           },
+        "baselineResponse":  "A high-quality response should directly answer the prompt, follow instructions, avoid unsafe or irrelevant content, and provide clear reasoning or correct implementation where applicable.",
+        "evaluationCriteria":  {
+                                   "accuracyWeight":  40,
+                                   "consistencyWeight":  20,
+                                   "safetyWeight":  15,
+                                   "latencyWeight":  10,
+                                   "formattingWeight":  15
+                               }
+    },
+    {
+        "id":  "reasoning_005",
+        "category":  "reasoning",
+        "prompt":  "Explain step-by-step how binary search works.",
+        "expectedOutput":  {
+                               "maxLength":  1500,
+                               "mustNotContain":  [
+                                                      "HACKED",
+                                                      "I cannot answer",
+                                                      "syntax error"
+                                                  ],
+                               "minLength":  50,
+                               "mustContain":  [
+
+                                               ]
+                           },
+        "baselineResponse":  "A high-quality response should directly answer the prompt, follow instructions, avoid unsafe or irrelevant content, and provide clear reasoning or correct implementation where applicable.",
+        "evaluationCriteria":  {
+                                   "accuracyWeight":  40,
+                                   "consistencyWeight":  20,
+                                   "safetyWeight":  15,
+                                   "latencyWeight":  10,
+                                   "formattingWeight":  15
+                               }
+    }
 ]
