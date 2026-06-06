@@ -7,14 +7,12 @@ import { EvaluationEngine } from "./services/evaluationEngine";
 
 dotenv.config();
 
-const app = express();
+export const app = express();
 
 app.use(express.json());
 
-const PORT = Number(process.env.PORT) || 3000;
-
 app.get("/", (_req, res) => {
-    res.status(200).json({
+    return res.status(200).json({
         service: "LLM Regression Testing Framework",
         status: "RUNNING",
         version: "1.0.0"
@@ -22,8 +20,9 @@ app.get("/", (_req, res) => {
 });
 
 app.get("/health", (_req, res) => {
-    res.status(200).json({
+    return res.status(200).json({
         status: "UP",
+        service: "LLM Regression Testing Framework",
         timestamp: new Date().toISOString()
     });
 });
@@ -32,18 +31,15 @@ app.get("/prompts", (_req, res) => {
     try {
         const prompts = PromptLoader.loadPrompts();
 
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
-            count: prompts.length,
+            totalPrompts: prompts.length,
             prompts
         });
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
-            error:
-                error instanceof Error
-                    ? error.message
-                    : "Failed to load prompts"
+            error: error instanceof Error ? error.message : "Failed to load prompts"
         });
     }
 });
@@ -62,10 +58,7 @@ app.get("/run-model", async (_req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            error:
-                error instanceof Error
-                    ? error.message
-                    : "Unknown error"
+            error: error instanceof Error ? error.message : "Unknown error"
         });
     }
 });
@@ -116,18 +109,4 @@ if (require.main === module) {
        app.listen(PORT, () => {
         console.log(`Server running at http://localhost:${PORT}`);
         console.log(`
-=====================================
-LLM Regression Testing Framework
-=====================================
-Server: http://localhost:${PORT}
-
-Endpoints:
-GET /health
-GET /prompts
-GET /run-model
-GET /evaluate
-=====================================
-`);
-    });
-
 }
