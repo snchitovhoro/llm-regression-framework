@@ -108,7 +108,8 @@ describe("PromptLoader", () => {
 
         expect(() => {
             PromptLoader.loadPrompts(tempDir);
-        }).toThrow("prompt is required");
+        }).toThrow("prompt must be a string");
+
     });
 
     it("throws an error for unsupported categories", () => {
