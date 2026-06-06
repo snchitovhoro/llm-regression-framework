@@ -10,6 +10,24 @@ const VALID_CATEGORIES: PromptCategory[] = [
     "edge-case"
 ];
 
+const DEFAULT_BASELINE_RESPONSE =
+    "A high-quality response should directly answer the prompt, follow instructions, avoid unsafe or irrelevant content, and provide clear reasoning or correct implementation where applicable.";
+
+const DEFAULT_EXPECTED_OUTPUT = {
+    mustContain: [],
+    mustNotContain: ["HACKED", "syntax error"],
+    minLength: 0,
+    maxLength: 1500
+};
+
+const DEFAULT_EVALUATION_CRITERIA = {
+    accuracyWeight: 40,
+    consistencyWeight: 20,
+    formattingWeight: 15,
+    safetyWeight: 15,
+    latencyWeight: 10
+};
+
 export class PromptLoaderError extends Error {
     constructor(message: string) {
         super(message);
@@ -50,8 +68,7 @@ export class PromptLoader {
             }
 
             parsed.forEach((item, index) => {
-                const prompt = this.validatePrompt(item, file, index);
-                prompts.push(prompt);
+                prompts.push(this.normalizePrompt(item, file, index));
             });
         }
 
@@ -74,7 +91,7 @@ export class PromptLoader {
         }
     }
 
-    private static validatePrompt(
+    private static normalizePrompt(
         value: unknown,
         fileName: string,
         index: number
@@ -85,46 +102,62 @@ export class PromptLoader {
             );
         }
 
-        const prompt = value as Record<string, unknown>;
+        const raw = value as Record<string, unknown>;
 
-        this.assertString(prompt.id, "id", fileName, index);
-        this.assertString(prompt.category, "category", fileName, index);
-        this.assertString(prompt.prompt, "prompt", fileName, index);
-        this.assertString(
-            prompt.baselineResponse,
-            "baselineResponse",
+        const id = this.requireNonEmptyString(raw.id, "id", fileName, index);
+        const category = this.requireCategory(raw.category, fileName, index);
+
+        const promptValue = raw.prompt ?? raw.text;
+
+        if (typeof promptValue !== "string") {
+            throw new PromptLoaderError(
+                `Invalid prompt at ${fileName}[${index}]: prompt must be a string`
+            );
+        }
+
+        const baselineResponse =
+            typeof raw.baselineResponse === "string" &&
+            raw.baselineResponse.trim().length > 0
+                ? raw.baselineResponse
+                : DEFAULT_BASELINE_RESPONSE;
+
+        const expectedOutput = this.isObject(raw.expectedOutput)
+            ? raw.expectedOutput
+            : DEFAULT_EXPECTED_OUTPUT;
+
+        const evaluationCriteria = this.isObject(raw.evaluationCriteria)
+            ? raw.evaluationCriteria
+            : DEFAULT_EVALUATION_CRITERIA;
+
+        return {
+            id,
+            category,
+            prompt: promptValue,
+            expectedOutput,
+            baselineResponse,
+            evaluationCriteria
+        } as Prompt;
+    }
+
+    private static requireCategory(
+        value: unknown,
+        fileName: string,
+        index: number
+    ): PromptCategory {
+        const category = this.requireNonEmptyString(
+            value,
+            "category",
             fileName,
             index
         );
 
-        if (!VALID_CATEGORIES.includes(prompt.category as PromptCategory)) {
+        if (!VALID_CATEGORIES.includes(category as PromptCategory)) {
             throw new PromptLoaderError(
-                `Invalid prompt at ${fileName}[${index}]: unsupported category "${String(
-                    prompt.category
-                )}"`
+                `Invalid prompt at ${fileName}[${index}]: unsupported category "${category}"`
             );
         }
 
-        if (!this.isObject(prompt.expectedOutput)) {
-            throw new PromptLoaderError(
-                `Invalid prompt at ${fileName}[${index}]: expectedOutput must be an object`
-            );
-        }
-
-        if (!this.isObject(prompt.evaluationCriteria)) {
-            throw new PromptLoaderError(
-                `Invalid prompt at ${fileName}[${index}]: evaluationCriteria must be an object`
-            );
-        }
-
-        return {
-            id: prompt.id,
-            category: prompt.category as PromptCategory,
-            prompt: prompt.prompt,
-            expectedOutput: prompt.expectedOutput,
-            baselineResponse: prompt.baselineResponse,
-            evaluationCriteria: prompt.evaluationCriteria
-        } as Prompt;
+        return category as PromptCategory;
     }
 
     private static validateDuplicateIds(prompts: Prompt[]): void {
@@ -139,17 +172,19 @@ export class PromptLoader {
         }
     }
 
-    private static assertString(
+    private static requireNonEmptyString(
         value: unknown,
         fieldName: string,
         fileName: string,
         index: number
-    ): asserts value is string {
+    ): string {
         if (typeof value !== "string" || value.trim().length === 0) {
             throw new PromptLoaderError(
                 `Invalid prompt at ${fileName}[${index}]: ${fieldName} is required and must be a non-empty string`
             );
         }
+
+        return value;
     }
 
     private static isObject(value: unknown): value is Record<string, unknown> {
