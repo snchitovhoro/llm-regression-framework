@@ -8,7 +8,7 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "typecheck": "tsc --noEmit -p tsconfig.test.json",
-    "lint": "eslint .",
+    "lint": "eslint src tests",
     "test": "jest",
     "regression": "ts-node src/runner/regressionRunner.ts",
     "generate-report": "ts-node src/reports/reportGenerator.ts"
