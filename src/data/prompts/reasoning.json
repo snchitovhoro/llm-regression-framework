@@ -1,0 +1,27 @@
+[
+  {
+    "id": "reasoning_001",
+    "category": "reasoning",
+    "text": "A train leaves Chicago at 60 mph. Another leaves New York at 80 mph. Explain what additional information is required to determine when they meet."
+  },
+  {
+    "id": "reasoning_002",
+    "category": "reasoning",
+    "text": "A farmer has 17 sheep and all but 9 die. How many sheep remain?"
+  },
+  {
+    "id": "reasoning_003",
+    "category": "reasoning",
+    "text": "If all roses are flowers and some flowers fade quickly, can we conclude that some roses fade quickly? Explain."
+  },
+  {
+    "id": "reasoning_004",
+    "category": "reasoning",
+    "text": "Compare the advantages and disadvantages of monolithic and microservice architectures."
+  },
+  {
+    "id": "reasoning_005",
+    "category": "reasoning",
+    "text": "Explain step-by-step how binary search works."
+  }
+]
