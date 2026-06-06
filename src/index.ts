@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 
 import { PromptLoader } from "./services/promptLoader";
+import {ModelRunner} from "./services/modelRunner";
 
 dotenv.config();
 
@@ -46,6 +47,28 @@ app.get("/prompts", (_req, res) => {
     }
 });
 
+app.get("/run-model", async (_req, res) => {
+    try {
+        const prompts = PromptLoader.loadPrompts();
+        const results = await ModelRunner.runAll(prompts);
+
+        return res.status(200).json({
+            success: true,
+            totalPrompts: prompts.length,
+            totalResponses: results.length,
+            results
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            error:
+                error instanceof Error
+                    ? error.message
+                    : "Unknown error"
+        });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`
 =====================================
@@ -56,6 +79,7 @@ Server: http://localhost:${PORT}
 Endpoints:
 GET /health
 GET /prompts
+GET /run-model
 =====================================
 `);
 });
