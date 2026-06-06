@@ -2,7 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 
 import { PromptLoader } from "./services/promptLoader";
-import { ModelRunner } from "./services/modelRunner";
+import {ModelRunner} from "./services/modelRunner";
+import { EvaluationEngine } from "./services/evaluationEngine";
 
 dotenv.config();
 
@@ -62,10 +63,50 @@ app.get("/run-model", async (_req, res) => {
     }
 });
 
-if (require.main === module) {
-    const PORT = Number(process.env.PORT) || 3000;
+app.get("/evaluate", async (_req, res) => {
+    try {
+        const prompts = PromptLoader.loadPrompts();
 
-    app.listen(PORT, () => {
+        const responses =
+            await ModelRunner.runAll(prompts);
+
+        const evaluations =
+            EvaluationEngine.evaluateAll(
+                prompts,
+                responses
+            );
+
+        const averageScore =
+            evaluations.reduce(
+                (sum, evaluation) =>
+                    sum + evaluation.totalScore,
+                0
+            ) / evaluations.length;
+
+        return res.status(200).json({
+            success: true,
+            totalPrompts: prompts.length,
+            totalResponses: responses.length,
+            averageScore: Number(
+                averageScore.toFixed(2)
+            ),
+            evaluations
+        });
+    } catch (error) {
+        console.error(error);
+
+        return res.status(500).json({
+            success: false,
+            error:
+                error instanceof Error
+                    ? error.message
+                    : "Unknown error"
+        });
+    }
+});
+
+if (require.main === module) {
+       app.listen(PORT, () => {
         console.log(`Server running at http://localhost:${PORT}`);
-    });
+        console.log(`
 }
