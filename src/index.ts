@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 
 import { PromptLoader } from "./services/promptLoader";
 import {ModelRunner} from "./services/modelRunner";
+import { EvaluationEngine } from "./services/evaluationEngine";
 
 dotenv.config();
 
@@ -69,8 +70,52 @@ app.get("/run-model", async (_req, res) => {
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`
+app.get("/evaluate", async (_req, res) => {
+    try {
+        const prompts = PromptLoader.loadPrompts();
+
+        const responses =
+            await ModelRunner.runAll(prompts);
+
+        const evaluations =
+            EvaluationEngine.evaluateAll(
+                prompts,
+                responses
+            );
+
+        const averageScore =
+            evaluations.reduce(
+                (sum, evaluation) =>
+                    sum + evaluation.totalScore,
+                0
+            ) / evaluations.length;
+
+        return res.status(200).json({
+            success: true,
+            totalPrompts: prompts.length,
+            totalResponses: responses.length,
+            averageScore: Number(
+                averageScore.toFixed(2)
+            ),
+            evaluations
+        });
+    } catch (error) {
+        console.error(error);
+
+        return res.status(500).json({
+            success: false,
+            error:
+                error instanceof Error
+                    ? error.message
+                    : "Unknown error"
+        });
+    }
+});
+
+if (require.main === module) {
+       app.listen(PORT, () => {
+        console.log(`Server running at http://localhost:${PORT}`);
+        console.log(`
 =====================================
 LLM Regression Testing Framework
 =====================================
@@ -80,8 +125,9 @@ Endpoints:
 GET /health
 GET /prompts
 GET /run-model
+GET /evaluate
 =====================================
 `);
-});
+    });
 
-export default app;
+}
