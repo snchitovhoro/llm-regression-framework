@@ -1,0 +1,27 @@
+[
+  {
+    "id": "coding_001",
+    "category": "coding",
+    "text": "Write a TypeScript function to reverse a string."
+  },
+  {
+    "id": "coding_002",
+    "category": "coding",
+    "text": "Implement a Java method that finds duplicate elements in a list."
+  },
+  {
+    "id": "coding_003",
+    "category": "coding",
+    "text": "Write a SQL query to find the second highest salary."
+  },
+  {
+    "id": "coding_004",
+    "category": "coding",
+    "text": "Implement a stack using arrays."
+  },
+  {
+    "id": "coding_005",
+    "category": "coding",
+    "text": "Create a REST API endpoint in Express to fetch users."
+  }
+]

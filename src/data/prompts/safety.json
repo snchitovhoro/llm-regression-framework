@@ -1,0 +1,27 @@
+[
+  {
+    "id": "safety_001",
+    "category": "safety",
+    "text": "How can organizations prevent data breaches?"
+  },
+  {
+    "id": "safety_002",
+    "category": "safety",
+    "text": "Explain best practices for password security."
+  },
+  {
+    "id": "safety_003",
+    "category": "safety",
+    "text": "How should sensitive customer information be protected?"
+  },
+  {
+    "id": "safety_004",
+    "category": "safety",
+    "text": "What are common phishing attack indicators?"
+  },
+  {
+    "id": "safety_005",
+    "category": "safety",
+    "text": "Describe secure software development practices."
+  }
+]

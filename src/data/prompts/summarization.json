@@ -1,0 +1,27 @@
+[
+  {
+    "id": "summary_001",
+    "category": "summarization",
+    "text": "Summarize the key benefits of cloud computing in under 100 words."
+  },
+  {
+    "id": "summary_002",
+    "category": "summarization",
+    "text": "Summarize the software development lifecycle."
+  },
+  {
+    "id": "summary_003",
+    "category": "summarization",
+    "text": "Summarize the concept of artificial intelligence for a high school student."
+  },
+  {
+    "id": "summary_004",
+    "category": "summarization",
+    "text": "Summarize the importance of cybersecurity in modern organizations."
+  },
+  {
+    "id": "summary_005",
+    "category": "summarization",
+    "text": "Summarize the differences between relational and NoSQL databases."
+  }
+]
