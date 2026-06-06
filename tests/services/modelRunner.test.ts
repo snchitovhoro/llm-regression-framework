@@ -1,6 +1,6 @@
 import { ModelRunner } from "../../src/services/modelRunner";
 import { Prompt } from "../../src/models/prompt.types";
-import { describe, expect, it, beforeEach, afterEach } from "@jest/globals";
+import { describe, expect, it } from "@jest/globals";
 
 describe("ModelRunner", () => {
     it("generates a model response", async () => {
