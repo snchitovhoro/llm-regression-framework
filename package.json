@@ -1,0 +1,48 @@
+{
+  "name": "llm-regression-framework",
+  "version": "1.0.0",
+  "description": "A TypeScript-based AI Quality Engineering platform for detecting behavioral regressions, response drift, latency degradation, and formatting inconsistencies across Large Language Model (LLM) versions.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "jest",
+    "regression": "ts-node src/runner/regressionRunner.ts",
+    "generate-report": "ts-node src/reports/reportGenerator.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/snchitovhoro/llm-regression-framework.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/snchitovhoro/llm-regression-framework/issues"
+  },
+  "homepage": "https://github.com/snchitovhoro/llm-regression-framework#readme",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.60.0",
+    "@types/express": "^5.0.6",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^25.9.2",
+    "@typescript-eslint/eslint-plugin": "^8.60.1",
+    "@typescript-eslint/parser": "^8.60.1",
+    "eslint": "^10.4.1",
+    "husky": "^9.1.7",
+    "jest": "^30.4.2",
+    "playwright": "^1.60.0",
+    "prettier": "^3.8.3",
+    "ts-jest": "^29.4.11",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^6.0.3"
+  }
+}
