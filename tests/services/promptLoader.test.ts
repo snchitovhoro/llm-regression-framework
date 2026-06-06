@@ -1,6 +1,7 @@
 import fs from "fs";
 import os from "os";
 import path from "path";
+import { describe, expect, it, beforeEach, afterEach } from "@jest/globals";
 import { PromptLoader, PromptLoaderError } from "../../src/services/promptLoader";
 
 describe("PromptLoader", () => {
@@ -78,7 +79,7 @@ describe("PromptLoader", () => {
 
         expect(() => {
             PromptLoader.loadPrompts(tempDir);
-        }).toThrow("Failed to load prompt file");
+        }).toThrow("Invalid JSON in bad.json");
     });
 
     it("throws an error when prompt file is not an array", () => {

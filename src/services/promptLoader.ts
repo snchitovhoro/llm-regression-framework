@@ -1,7 +1,6 @@
 import fs from "fs";
 import path from "path";
-import type {Prompt, PromptCategory} from "../models/prompt.types";
-import process = require("process");
+import { Prompt, PromptCategory } from "../models/prompt.types";
 
 const VALID_CATEGORIES: PromptCategory[] = [
     "reasoning",
@@ -30,7 +29,7 @@ export class PromptLoader {
 
         const files = fs
             .readdirSync(promptsDirectory)
-            .filter((file: string) => file.endsWith(".json"));
+            .filter((file) => file.endsWith(".json"));
 
         if (files.length === 0) {
             throw new PromptLoaderError(
@@ -42,37 +41,37 @@ export class PromptLoader {
 
         for (const file of files) {
             const filePath = path.join(promptsDirectory, file);
+            const parsed = this.readJsonFile(filePath, file);
 
-            try {
-                const rawContent = fs.readFileSync(filePath, "utf-8");
-                const parsed = JSON.parse(rawContent);
-
-                if (!Array.isArray(parsed)) {
-                    throw new PromptLoaderError(
-                        `Prompt file must contain an array: ${file}`
-                    );
-                }
-
-                parsed.forEach((item, index) => {
-                    const prompt = this.validatePrompt(item, file, index);
-                    prompts.push(prompt);
-                });
-            } catch (error) {
-                if (error instanceof PromptLoaderError) {
-                    throw error;
-                }
-
+            if (!Array.isArray(parsed)) {
                 throw new PromptLoaderError(
-                    `Failed to load prompt file ${file}: ${
-                        error instanceof Error ? error.message : "Unknown error"
-                    }`
+                    `Prompt file must contain an array: ${file}`
                 );
             }
+
+            parsed.forEach((item, index) => {
+                const prompt = this.validatePrompt(item, file, index);
+                prompts.push(prompt);
+            });
         }
 
         this.validateDuplicateIds(prompts);
 
         return prompts;
+    }
+
+    private static readJsonFile(filePath: string, fileName: string): unknown {
+        const rawContent = fs.readFileSync(filePath, "utf-8");
+
+        try {
+            return JSON.parse(rawContent);
+        } catch (error) {
+            throw new PromptLoaderError(
+                `Invalid JSON in ${fileName}: ${
+                    error instanceof Error ? error.message : "Unknown error"
+                }`
+            );
+        }
     }
 
     private static validatePrompt(
@@ -118,7 +117,14 @@ export class PromptLoader {
             );
         }
 
-        return prompt as unknown as Prompt;
+        return {
+            id: prompt.id,
+            category: prompt.category as PromptCategory,
+            prompt: prompt.prompt,
+            expectedOutput: prompt.expectedOutput,
+            baselineResponse: prompt.baselineResponse,
+            evaluationCriteria: prompt.evaluationCriteria
+        } as Prompt;
     }
 
     private static validateDuplicateIds(prompts: Prompt[]): void {
@@ -138,7 +144,7 @@ export class PromptLoader {
         fieldName: string,
         fileName: string,
         index: number
-    ): void {
+    ): asserts value is string {
         if (typeof value !== "string" || value.trim().length === 0) {
             throw new PromptLoaderError(
                 `Invalid prompt at ${fileName}[${index}]: ${fieldName} is required and must be a non-empty string`
